@@ -1,24 +1,30 @@
 import React from 'react';
-import './Auth.scss';
+import PropTypes from 'prop-types';
+
 import authRequests from '../../helpers/data/authRequests';
+import googleButton from './images/googlebutton.png';
+
+import './Auth.scss';
 
 class Auth extends React.Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.func,
+  }
+
   authenticateUser = (e) => {
     e.preventDefault();
     authRequests.authenticate().then(() => {
-      // do something here
-    }).catch(err => console.error('there was an error'));
+      this.props.isAuthenticated();
+    }).catch(err => console.error('error in authenticating', err));
   }
 
   render() {
     return (
-      <input
-        className="login-btn"
-        type="image"
-        src="https://www.htps.us/UserFiles/Servers/Server_791028/Templates/login-google.png"
-        alt="login with google"
-        onClick={this.authenticateUser}
-      />
+      <div className="Auth">
+        <button className="btn btn-danger login-btn" onClick={this.authenticateUser}>
+          <img src={googleButton} alt="google login button"/>
+        </button>
+      </div>
     );
   }
 }
