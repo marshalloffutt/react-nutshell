@@ -3,7 +3,9 @@ import firebase from 'firebase/app';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import connection from '../helpers/data/connection';
 import Auth from '../components/Auth/Auth';
+import Mavbar from '../components/Mavbar/Mavbar';
 import './App.scss';
+import authRequests from '../helpers/data/authRequests';
 
 class App extends Component {
   state = {
@@ -25,9 +27,9 @@ class App extends Component {
     });
   }
 
-  // componentWillMount() {
-  //   this.removeListener();
-  // }
+  componentWillUnMount() {
+    this.removeListener();
+  }
 
   isAuthenticated = () => {
     this.setState({ authed: true });
@@ -35,16 +37,21 @@ class App extends Component {
 
   render() {
     const { authed } = this.state;
+    const logoutClicky = () => {
+      authRequests.logoutUser();
+      this.setState({ authed: false });
+    };
 
     if (!authed) {
       return (
         <div className="App">
-          <Auth />
+          <Auth isAuthenticated={this.isAuthenticated}/>
         </div>
       );
     }
     return (
       <div className="App">
+        <Mavbar isAuthed={authed} logoutClicky={logoutClicky}/>
         You are authenticated.
       </div>
     );
