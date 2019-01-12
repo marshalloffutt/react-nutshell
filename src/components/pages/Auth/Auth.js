@@ -21,6 +21,7 @@ class Auth extends React.Component {
                 uid: `${results.user.uid}`,
               };
               console.log(newUserObject);
+              userRequests.createUser(newUserObject); // I am now user16
             }
           });
         this.props.history.push('/home');
