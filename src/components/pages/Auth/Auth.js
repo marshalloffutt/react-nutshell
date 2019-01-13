@@ -18,10 +18,12 @@ class Auth extends React.Component {
                 photo: `${results.user.photoURL}`,
                 uid: `${results.user.uid}`,
               };
-              userRequests.createUser(newUserObject);
+              userRequests.createUser(newUserObject)
+                .then(() => {
+                  this.props.history.push('/home');
+                });
             }
           });
-        this.props.history.push('/home');
       }).catch(err => console.error('error in authenticating', err));
   }
 
