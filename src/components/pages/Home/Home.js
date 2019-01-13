@@ -50,7 +50,7 @@ class Home extends React.Component {
           </div>
           <div className="card border-dark" id='articles' onClick={this.changeView}>
             <div className="card-body text-center">
-              <h4 className="card-title"><i class="fas fa-skull-crossbones fa-5x"></i></h4>
+              <h4 className="card-title"><i className="fas fa-skull-crossbones fa-5x"></i></h4>
               <h6 className="card-subtitle mb-2 text-muted">Articles</h6>
               <p className="card-text">See your saved articles</p>
             </div>
