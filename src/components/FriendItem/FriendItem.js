@@ -12,8 +12,8 @@ class FriendItem extends React.Component {
 
     return (
         <li className="friend-item" id={friend.id}>
-          <span className="col-1"><img src={friend.photo} alt={friend.userName}/></span>
-          <span className="col-4">{friend.userName}</span>
+          <span className="col-1"><img className="photo" src={friend.photo} alt={friend.userName}/></span>
+          <span className="col-9">{friend.userName}</span>
         </li>
     );
   }

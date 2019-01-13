@@ -22,7 +22,6 @@ class Friends extends React.Component {
       .usersAndFriends(uid)
       .then((results) => {
         const users = results;
-        console.log(users);
         const potentials = users.filter(user => !user.isAccepted && !user.isPending);
         const pending = users.filter(user => !user.isAccepted && user.isPending);
         const confirmed = users.filter(user => user.isAccepted);
@@ -41,7 +40,7 @@ class Friends extends React.Component {
       potentials,
       pending,
       confirmed,
-    } = this.state; // I thought this should be props.... but it only works if it is state
+    } = this.state;
 
     const friendItemComponents = friendArray => (
       friendArray.map(friend => (
