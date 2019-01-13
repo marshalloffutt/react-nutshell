@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import friendShape from '../../helpers/props/friendShape';
 import './FriendItem.scss';
@@ -6,14 +7,23 @@ import './FriendItem.scss';
 class FriendItem extends React.Component {
   static propTypes = {
     friend: friendShape,
+    status: PropTypes.string,
+    endFriendship: PropTypes.func,
   };
+
+  deleteEvent = (e) => {
+    e.preventDefault();
+    const friendRequestId = e.target.id;
+    const { endFriendship } = this.props;
+    endFriendship(friendRequestId);
+  }
 
   render() {
     const { friend, status } = this.props;
     const makeButtons = () => {
       if (status === 'confirmed') {
         return (
-          <Button color="danger"><i className="far fa-trash-alt"></i></Button>
+          <Button color="danger" id={friend.friendRequestId} onClick={this.deleteEvent}><i className="far fa-trash-alt"></i></Button>
         );
       } return '';
     };

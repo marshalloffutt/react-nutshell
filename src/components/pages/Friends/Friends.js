@@ -1,6 +1,7 @@
 import React from 'react';
 import smashRequests from '../../../helpers/data/smashRequests';
 import authRequests from '../../../helpers/data/authRequests';
+import friendRequests from '../../../helpers/data/friendRequests';
 import FriendItem from '../../FriendItem/FriendItem';
 import './Friends.scss';
 
@@ -21,6 +22,7 @@ class Friends extends React.Component {
     smashRequests
       .usersAndFriends(uid)
       .then((results) => {
+        console.log(results);
         const users = results;
         const potentials = users.filter(user => !user.isAccepted && !user.isPending);
         const pending = users.filter(user => !user.isAccepted && user.isPending);
@@ -35,6 +37,14 @@ class Friends extends React.Component {
       .catch(err => console.error('error in SMASH', err));
   }
 
+  endFriendship = (friendRequestId) => {
+    friendRequests.deleteFriend(friendRequestId)
+      .then(() => {
+        this.getAndSortUsers();
+      })
+      .catch(err => console.error('error in ending friendship', err));
+  }
+
   render() {
     const {
       potentials,
@@ -44,7 +54,12 @@ class Friends extends React.Component {
 
     const friendItemComponents = (friendArray, status) => (
       friendArray.map(friend => (
-        <FriendItem key={friend.id} friend={friend} status={status}/>
+        <FriendItem
+          key={friend.id}
+          friend={friend}
+          status={status}
+          endFriendship={this.endFriendship}
+        />
       ))
     );
 
