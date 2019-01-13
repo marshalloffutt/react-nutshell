@@ -1,6 +1,7 @@
 import React from 'react';
 import smashRequests from '../../../helpers/data/smashRequests';
 import authRequests from '../../../helpers/data/authRequests';
+import friendRequests from '../../../helpers/data/friendRequests';
 import FriendItem from '../../FriendItem/FriendItem';
 import './Friends.scss';
 
@@ -32,6 +33,14 @@ class Friends extends React.Component {
       .catch(err => console.error('error in SMASH', err));
   }
 
+  endFriendship = (friendRequestId) => {
+    friendRequests.deleteFriend(friendRequestId)
+      .then(() => {
+        this.getAndSortUsers();
+      })
+      .catch(err => console.error('error in ending friendship', err));
+  }
+
   render() {
     const {
       potentials,
@@ -39,9 +48,14 @@ class Friends extends React.Component {
       confirmed,
     } = this.state;
 
-    const friendItemComponents = friendArray => (
+    const friendItemComponents = (friendArray, status) => (
       friendArray.map(friend => (
-        <FriendItem key={friend.id} friend={friend} />
+        <FriendItem
+          key={friend.id}
+          friend={friend}
+          status={status}
+          endFriendship={this.endFriendship}
+        />
       ))
     );
 
@@ -52,15 +66,15 @@ class Friends extends React.Component {
           <div className="row">
             <div className="col-sm">
               <h3>Potential Friends</h3>
-              <ul>{friendItemComponents(potentials)}</ul>
+              <ul>{friendItemComponents(potentials, 'potentials')}</ul>
             </div>
             <div className="col-sm">
               <h3>Pending Requests</h3>
-              <ul>{friendItemComponents(pending)}</ul>
+              <ul>{friendItemComponents(pending, 'pending')}</ul>
             </div>
             <div className="col-sm">
               <h3>Friends</h3>
-              <ul>{friendItemComponents(confirmed)}</ul>
+              <ul>{friendItemComponents(confirmed, 'confirmed')}</ul>
             </div>
           </div>
         </div>
