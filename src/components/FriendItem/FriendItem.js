@@ -13,7 +13,7 @@ class FriendItem extends React.Component {
 
   deleteEvent = (e) => {
     e.preventDefault();
-    const friendRequestId = e.target.id;
+    const friendRequestId = e.target.closest('button').id;
     const { endFriendship } = this.props;
     endFriendship(friendRequestId);
   }
