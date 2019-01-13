@@ -1,9 +1,8 @@
 import React from 'react';
 import smashRequests from '../../../helpers/data/smashRequests';
-// import getCurrentUid from '../../../helpers/data/authRequests';
+import authRequests from '../../../helpers/data/authRequests';
 import './Friends.scss';
 
-// const uid = getCurrentUid();
 
 class Friends extends React.Component {
   state = {
@@ -14,13 +13,26 @@ class Friends extends React.Component {
   }
 
   componentDidMount() {
-    smashRequests.usersAndFriends()
+    this.getAndSortUsers();
+  }
+
+  getAndSortUsers = () => {
+    const uid = authRequests.getCurrentUid();
+    smashRequests
+      .usersAndFriends(uid)
       .then((results) => {
         const users = results;
-        console.log(users);
-        this.setState({ users });
+        const potentials = users.filter(user => !user.isAccepted && !user.isPending);
+        const pendings = users.filter(user => !user.isAccepted && user.isPending);
+        const confirmed = users.filter(user => user.isAccepted);
+        this.setState({
+          users,
+          potentials,
+          pendings,
+          confirmed,
+        });
       })
-      .catch(err => console.error('error in smash', err));
+      .catch(err => console.error('error in SMASH', err));
   }
 
   render() {
