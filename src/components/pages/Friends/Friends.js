@@ -1,6 +1,9 @@
 import React from 'react';
 import smashRequests from '../../../helpers/data/smashRequests';
+// import getCurrentUid from '../../../helpers/data/authRequests';
 import './Friends.scss';
+
+// const uid = getCurrentUid();
 
 class Friends extends React.Component {
   state = {
@@ -13,8 +16,11 @@ class Friends extends React.Component {
   componentDidMount() {
     smashRequests.usersAndFriends()
       .then((results) => {
-        console.log(results);
-      }).catch(err => console.error('error in smash', err));
+        const users = results;
+        console.log(users);
+        this.setState({ users });
+      })
+      .catch(err => console.error('error in smash', err));
   }
 
   render() {
