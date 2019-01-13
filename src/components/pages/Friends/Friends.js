@@ -7,7 +7,6 @@ import './Friends.scss';
 
 class Friends extends React.Component {
   state = {
-    users: [],
     potentials: [],
     confirmed: [],
     pending: [],
@@ -22,13 +21,10 @@ class Friends extends React.Component {
     smashRequests
       .usersAndFriends(uid)
       .then((results) => {
-        console.log(results);
-        const users = results;
-        const potentials = users.filter(user => !user.isAccepted && !user.isPending);
-        const pending = users.filter(user => !user.isAccepted && user.isPending);
-        const confirmed = users.filter(user => user.isAccepted);
+        const potentials = results.filter(user => !user.isAccepted && !user.isPending);
+        const pending = results.filter(user => !user.isAccepted && user.isPending);
+        const confirmed = results.filter(user => user.isAccepted);
         this.setState({
-          users,
           potentials,
           pending,
           confirmed,
