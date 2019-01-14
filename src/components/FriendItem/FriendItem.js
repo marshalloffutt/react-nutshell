@@ -35,7 +35,6 @@ class FriendItem extends React.Component {
   }
 
   render() {
-    const uid = authRequests.getCurrentUid();
     const { friend, status } = this.props;
     const makeButtons = () => {
       if (status === 'confirmed') {
@@ -46,7 +45,7 @@ class FriendItem extends React.Component {
         return (
           <Button color="success" id={friend.uid} onClick={this.addFriendEvent}><i className="fas fa-plus"></i></Button>
         );
-      } if (status === 'pending' && uid !== friend.friendRequestId) {
+      } if (status === 'pending' && friend.friendRequest === 'them') {
         return (
           <div>
             <Button color="success" id={friend.uid} onClick={this.addFriendEvent}>Approve</Button>
