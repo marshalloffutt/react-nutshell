@@ -24,15 +24,14 @@ class FriendItem extends React.Component {
     e.preventDefault();
     const uid = authRequests.getCurrentUid();
     const friendUid = e.target.closest('button').id;
-    // const { addFriend } = this.props;
+    const { addFriend } = this.props;
     const newFriend = {
       friendUid,
       isAccepted: false,
       isPending: true,
       uid,
     };
-    // addFriend(newFriend);
-    console.log(newFriend);
+    addFriend(newFriend);
   }
 
   render() {
