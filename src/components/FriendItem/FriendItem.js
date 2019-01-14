@@ -25,6 +25,10 @@ class FriendItem extends React.Component {
         return (
           <Button color="danger" id={friend.friendRequestId} onClick={this.deleteEvent}><i className="far fa-trash-alt"></i></Button>
         );
+      } if (status === 'potentials') {
+        return (
+          <Button color="success" id={friend.friendRequestId}><i class="fas fa-plus"></i></Button>
+        );
       } return '';
     };
 
