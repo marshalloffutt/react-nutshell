@@ -49,7 +49,7 @@ class FriendItem extends React.Component {
         return (
           <div>
             <Button color="success" id={friend.uid} onClick={this.addFriendEvent}>Approve</Button>
-            <Button color="danger" id={friend.uid} onClick={this.addFriendEvent}>Deny</Button>
+            <Button color="danger" id={friend.friendRequestId} onClick={this.deleteEvent}>Deny</Button>
           </div>
         );
       } return '';
