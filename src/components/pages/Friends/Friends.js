@@ -41,6 +41,14 @@ class Friends extends React.Component {
       .catch(err => console.error('error in ending friendship', err));
   }
 
+  // addFriend = (newFriend) => {
+  //   friendRequests.addFriend(newFriend)
+  //     .then(() => {
+  //       this.getAndSortUsers();
+  //     })
+  //     .catch(err => console.error('error in adding friend', err));
+  // }
+
   render() {
     const {
       potentials,
@@ -55,6 +63,7 @@ class Friends extends React.Component {
           friend={friend}
           status={status}
           endFriendship={this.endFriendship}
+          addFriend={this.addFriend}
         />
       ))
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
+import authRequests from '../../helpers/data/authRequests';
 import friendShape from '../../helpers/props/friendShape';
 import './FriendItem.scss';
 
@@ -9,6 +10,7 @@ class FriendItem extends React.Component {
     friend: friendShape,
     status: PropTypes.string,
     endFriendship: PropTypes.func,
+    addFriend: PropTypes.func,
   };
 
   deleteEvent = (e) => {
@@ -16,6 +18,21 @@ class FriendItem extends React.Component {
     const friendRequestId = e.target.closest('button').id;
     const { endFriendship } = this.props;
     endFriendship(friendRequestId);
+  }
+
+  addFriendEvent = (e) => {
+    e.preventDefault();
+    const uid = authRequests.getCurrentUid();
+    const friendUid = e.target.closest('button').id;
+    // const { addFriend } = this.props;
+    const newFriend = {
+      friendUid,
+      isAccepted: false,
+      isPending: true,
+      uid,
+    };
+    // addFriend(newFriend);
+    console.log(newFriend);
   }
 
   render() {
@@ -27,7 +44,7 @@ class FriendItem extends React.Component {
         );
       } if (status === 'potentials') {
         return (
-          <Button color="success" id={friend.friendRequestId}><i class="fas fa-plus"></i></Button>
+          <Button color="success" id={friend.uid} onClick={this.addFriendEvent}><i className="fas fa-plus"></i></Button>
         );
       } return '';
     };
