@@ -49,6 +49,14 @@ class Friends extends React.Component {
       .catch(err => console.error('error in adding friend', err));
   }
 
+  confirmFriend = (friendId) => {
+    friendRequests.acceptFriendship(friendId)
+      .then(() => {
+        this.getAndSortUsers();
+      })
+      .catch(err => console.error('error in confirming friendship', err));
+  }
+
   render() {
     const {
       potentials,
@@ -64,12 +72,13 @@ class Friends extends React.Component {
           status={status}
           endFriendship={this.endFriendship}
           addFriend={this.addFriend}
+          confirmFriend={this.confirmFriend}
         />
       ))
     );
 
     return (
-      <div className='Friends container'>
+      <div className='Friends'>
         <h2>Friends</h2>
         <div className="container">
           <div className="row">
